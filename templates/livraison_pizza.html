@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Livraisons en cours</title>
+</head>
+<body>
+  <a href='/'>Page principale</a>
+  <div>
+    <h1>Commandes à livrer</h1>
+    <table border="1">
+      <tr>
+          <th>#Commande</th>
+          <th>Nom client</th>
+          <th>Adresse</th>
+          <th>Téléphone</th>
+          <th>Croute</th>
+          <th>Sauce</th>
+          <th>Garnitures</th>
+          <th>Terminer la commande</th>
+      </tr>
+    {% for commande in livraison_en_cours %}
+      <tr>
+        <td>{{ commande[0] }}</td>
+        <td>{{ commande[1] }}</td>
+        <td>{{ commande[2] }}</td>
+        <td>{{ commande[3] }}</td>
+        <td>{{ commande[4] }}</td>
+        <td>{{ commande[5] }}</td>
+        <td>{{ commande[6] }}</td>
+        <td>
+          <form action="{{ url_for('effacer_commande', commande_id=commande[0]) }}" method="POST">
+            <button type="submit">Livraison terminée</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="8" class="empty-row">Aucune commande à livrer.</td>
+      </tr>
+    {% endfor %}
+    </table>
+  </div>
+</body>
+</html>

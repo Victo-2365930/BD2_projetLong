@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+  </head>
+  <body>
+    <h1>Confirmation de votre commande</h1>
+    <h2>
+      Merci de confirmer votre commande
+    </h2>
+    <p>
+      Type de croute: {{ croute }} <br>
+      Type de sauce: {{ sauce }} <br>
+      Vos garnitures: 1) {{ garnitureUn }} 2) {{ garnitureDeux }} 3){{ garnitureTrois }} 4) {{ garnitureQuatre }}
+
+    </p>
+    <h2>
+      Merci de confirmer vos informations de livraison
+    </h2>
+    <p>
+      Nom complet: {{ nom }} <br>
+      Numéro de téléphone: {{ num_tel }} <br>
+      Votre adresse de livraison: {{ adresse_complete }}
+    </p>
+
+    <form action="/validation" method="POST">
+      <input type="hidden" name="nom"id="nom" value="{{ nom }}">
+      <input type="hidden" name="num_tel" id="num_tel" value="{{ num_tel }}">
+      <input type="hidden" name="adresse_complete" id="adresse_complete" value="{{ adresse_complete }}">
+      <input type="hidden" name="croute" id="croute" value="{{ croute }}">
+      <input type="hidden" name="sauce" id="sauce" value="{{ sauce }}">
+      <input type="hidden" name="garnitureUn" id="garnitureUn" value="{{ garnitureUn }}">
+      <input type="hidden" name="garnitureDeux" id="garnitureDeux" value="{{ garnitureDeux }}">
+      <input type="hidden" name="garnitureTrois" id="garnitureTrois" value="{{ garnitureTrois }}">
+      <input type="hidden" name="garnitureQuatre" id="garnitureQuatre" value="{{ garnitureQuatre }}">
+
+      <button>Valider la commande</button>
+    </form>
+    
+  </body>
+</html>

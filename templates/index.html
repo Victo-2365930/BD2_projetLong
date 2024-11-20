@@ -1,0 +1,105 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Formulaire Flask</title>
+  </head>
+  <body>
+    <a href="/livraison_pizza">Livraison en cours</a>
+
+    <h1>Commandez votre Pizza Di Mama!</h1>
+    
+    <form action="{{ url_for('confirmation') }}" method="POST">
+      <div>
+        <h2>Renseignements pour livraison</h2>
+        <label for="nom">Nom complet :</label> 
+        <input type="text"id="nom"name="nom" 
+        placeholder="Marcel Aubut" required>
+        <br>
+        <label for="num_tel">Numéro de téléphone :</label>
+        <input type="tel" id="num_tel" name="num_tel" 
+        pattern="^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$"
+        placeholder="514-444-1919" required>
+        <br>
+        <label for="adresse_complete">Adresse :</label> 
+        <input type="text"id="adresse_complete"name="adresse_complete" 
+        placeholder="44 rue des finfins Victoriaville" required>
+      </div>
+      <br>
+      <div>
+        <h2>Comment voulez-vous votre pizza?</h2>
+
+        <!--La boucle fait en sorte d'afficher 'Classique' en value de base et les autres croutes de la base de donnée-->
+        <label for="croute">Croute :</label>
+        <select name="croute" id="croute">
+          <option value="Classique" {% if 'Classique' in croute %}selected{% endif %}>Classique</option>
+          {% for croute_item in croute %}
+              {% if croute_item[0] != 'Classique' %}
+                  <option value="{{ croute_item[0] }}">{{ croute_item[0] }}</option>
+              {% endif %}
+          {% endfor %}
+        </select>
+
+        <br>
+
+        <!--La boucle fait en sorte d'afficher 'Tomate' en value de base et les autres sauce de la base de donnée-->
+        <label for="sauce">Sauce :</label>
+        <select name="sauce" id="sauce">
+          <option value="Tomate" {% if 'Tomate' in sauce %}selected{% endif %}>Tomate</option>
+          {% for sauce_item in sauce %}
+              {% if sauce_item[0] != 'Tomate' %}
+                  <option value="{{ sauce_item[0] }}">{{ sauce_item[0] }}</option>
+              {% endif %}
+          {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="garnitureUn">Garniture 1 :</label>
+        <select name="garnitureUn" id="garnitureUn">
+          <option value="Aucune">Aucune</option>
+          {% for garniture in garniture %}
+          <option value="{{ garniture[0] }}">{{ garniture[0] }}</option>
+          {% endfor %}
+        </select>
+
+        <br>
+        
+        <label for="garnitureDeux">Garniture 2 :</label>
+        <select name="garnitureDeux" id="garnitureDeux">
+          <option value="Aucune">Aucune</option>
+          {% for garniture in garniture %}
+          <option value="{{ garniture[0] }}">{{ garniture[0] }}</option>
+          {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="garnitureTrois">Garniture 3 :</label>
+        <select name="garnitureTrois" id="garnitureTrois">
+          <option value="Aucune">Aucune</option>
+          {% for garniture in garniture %}
+          <option value="{{ garniture[0] }}">{{ garniture[0] }}</option>
+          {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="garnitureQuatre">Garniture 4 :</label>
+        <select name="garnitureQuatre" id="garnitureQuatre">
+          <option value="Aucune">Aucune</option>
+          {% for garniture in garniture %}
+          <option value="{{ garniture[0] }}">{{ garniture[0] }}</option>
+          {% endfor %}
+        </select>
+        
+      </div>
+      <br><br><br>
+      <a href="{{ url_for('confirmation') }}">
+        <button type="submit">Vers la page de confirmation</button>
+      </a>
+    </form>
+  </body>
+</html>
