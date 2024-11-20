@@ -18,17 +18,17 @@
           <th>Garnitures</th>
           <th>Terminer la commande</th>
       </tr>
-    {% for commande in livraison_en_cours %}
+    {% for livraison in livraison_en_cours %}
       <tr>
-        <td>{{ commande[0] }}</td>
-        <td>{{ commande[1] }}</td>
-        <td>{{ commande[2] }}</td>
-        <td>{{ commande[3] }}</td>
-        <td>{{ commande[4] }}</td>
-        <td>{{ commande[5] }}</td>
-        <td>{{ commande[6] }}</td>
+        <td>{{ livraison[0] }}</td>
+        <td>{{ livraison[1] }}</td>
+        <td>{{ livraison[2] }}</td>
+        <td>{{ livraison[3] }}</td>
+        <td>{{ livraison[4] }}</td>
+        <td>{{ livraison[5] }}</td>
+        <td>{{ livraison[6] }}</td>
         <td>
-          <form action="{{ url_for('effacer_commande', commande_id=commande[0]) }}" method="POST">
+          <form action="{{ url_for('effacer_commande', commande_id=livraison[0]) }}" method="POST">
             <button type="submit">Livraison terminée</button>
           </form>
         </td>

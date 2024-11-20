@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 def charger_configuration():
    
+   #Pour se connecter à la base de donnée
     config = {
         'host': os.getenv('DB_HOST'),
         'user': os.getenv('DB_USER'),
@@ -36,15 +37,15 @@ def index():
     try:
         cursor = db.cursor()
 
-        # Appel des croûtes
+        # Appel de la table des croûtes
         cursor.execute("SELECT description FROM type_croute")
         croute = cursor.fetchall()
 
-        #Appel des sauces
+        # Appel de la table des sauces
         cursor.execute("SELECT description FROM type_sauce")
         sauce = cursor.fetchall()
 
-        #Appel des garnitures
+        #Appel de la table des garnitures
         cursor.execute("SELECT description FROM garnitures")
         garniture = cursor.fetchall()
 
@@ -61,12 +62,12 @@ def index():
 
 @app.route('/confirmation', methods=['POST'])
 def confirmation():
-    #Renseignements client
+    # Enregistrer les données de renseignements client
     nom = request.form.get('nom')
     num_tel = request.form.get('num_tel')
     adresse_complete = request.form.get('adresse_complete')
 
-    #Renseignements pizza
+    # Enregistrer les données de la commande
     croute = request.form.get('croute')
     sauce = request.form.get('sauce')
     garnitureUn = request.form.get('garnitureUn')
@@ -83,12 +84,12 @@ def confirmation():
 @app.route('/validation', methods=['POST'])
 def validation():
 
-    #Renseignement client
+    #Reprendre les données des renseignements du client
     nom = request.form.get('nom')
     num_tel = request.form.get('num_tel')
     adresse_complete = request.form.get('adresse_complete')
 
-    #Renseignements pizza
+    #Reprendre les données de la commande
     croute = request.form.get('croute')
     sauce = request.form.get('sauce')
     garnitureUn = request.form.get('garnitureUn')
@@ -105,25 +106,20 @@ def validation():
 
         # Insertion dans la table clients
         query_client = ("INSERT INTO client (nom_complet, num_telephone, adresse_livraison) VALUES (%s, %s, %s)")
-        print(f"Exécution de la requête client : {query_client} -> {nom}, {num_tel}, {adresse_complete}")  # Log
         cursor.execute(query_client, (nom, num_tel, adresse_complete))
 
-        #Prendre le id du dernier client inséré
+        # Prendre le id du dernier client inséré
         client_id = cursor.lastrowid
-        print(f"Nouveau client ajouté avec ID : {client_id}")  # Log
 
-        #Insertion dans la table commande
+        # Insertion dans la table commande
         query_commande = ("INSERT INTO commande (id_le_client, type_croute , type_sauce) VALUES (%s, (SELECT id_croute FROM type_croute WHERE description = %s ), (SELECT id_sauce FROM type_sauce WHERE description = %s ))")
-        print(f"Exécution de la requête commande : {query_commande} -> {client_id}, {croute}, {sauce}")  # Log
         cursor.execute(query_commande, (client_id, croute, sauce) )
 
-        #Prendre le id de la dernière commande insérée
+        # Prendre le id de la dernière commande insérée
         id_commande = cursor.lastrowid
-        print(f"Nouvelle commande ajoutée avec ID : {id_commande}")  # Log
         
         # Insertion des 4 garnitures
         query_garniture_un=("INSERT INTO commande_garniture (id_la_commande, garniture_id) VALUES (%s, (SELECT id_garniture FROM garnitures WHERE description = %s ))")
-        print(f"Exécution de la requête garniture : {query_garniture_un} -> {id_commande}, {garnitureUn}")  # Log
         cursor.execute(query_garniture_un, (id_commande, garnitureUn) )
 
         query_garniture_deux=("INSERT INTO commande_garniture (id_la_commande, garniture_id) VALUES (%s, (SELECT id_garniture FROM garnitures WHERE description = %s ))")

@@ -21,7 +21,7 @@
       Numéro de téléphone: {{ num_tel }} <br>
       Votre adresse de livraison: {{ adresse_complete }}
     </p>
-
+    <!--Réinsertions des données en mode caché pour faire suivre les données-->
     <form action="/validation" method="POST">
       <input type="hidden" name="nom"id="nom" value="{{ nom }}">
       <input type="hidden" name="num_tel" id="num_tel" value="{{ num_tel }}">

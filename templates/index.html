@@ -66,7 +66,7 @@
         </select>
 
         <br>
-        
+        <!--La boucle fait en sorte d'afficher 'Aucune' en value de base et les autres garnitures-->
         <label for="garnitureDeux">Garniture 2 :</label>
         <select name="garnitureDeux" id="garnitureDeux">
           <option value="Aucune">Aucune</option>
@@ -97,6 +97,7 @@
         
       </div>
       <br><br><br>
+      <!--Envoyer vers la page de confirmation-->
       <a href="{{ url_for('confirmation') }}">
         <button type="submit">Vers la page de confirmation</button>
       </a>
